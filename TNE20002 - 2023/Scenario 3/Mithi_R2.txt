@@ -1,0 +1,123 @@
+Current configuration : 1694 bytes
+!
+version 15.4
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+no service password-encryption
+!
+hostname MithiR2
+!
+!
+!
+!
+!
+!
+!
+!
+no ip cef
+no ipv6 cef
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+no ip domain-lookup
+!
+!
+spanning-tree mode pvst
+!
+!
+!
+!
+!
+!
+interface GigabitEthernet0/0/0
+ no ip address
+ duplex auto
+ speed auto
+ shutdown
+!
+interface GigabitEthernet0/0/1
+ description Physical Interface
+ no ip address
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/0/1.1
+ description VLAN 1 Management
+ encapsulation dot1Q 1 native
+ ip address 131.72.4.129 255.255.255.248
+!
+interface GigabitEthernet0/0/1.112
+ description VLAN 112 Rice
+ encapsulation dot1Q 112
+ ip address 131.72.4.1 255.255.255.192
+!
+interface GigabitEthernet0/0/1.982
+ description VLAN 982 Flour
+ encapsulation dot1Q 982
+ ip address 131.72.2.1 255.255.255.0
+!
+interface Serial0/1/0
+ bandwidth 128
+ ip address 131.72.4.142 255.255.255.252
+!
+interface Serial0/1/1
+ bandwidth 512
+ ip address 131.72.4.146 255.255.255.252
+!
+interface Serial0/2/0
+ no ip address
+ clock rate 2000000
+ shutdown
+!
+interface Serial0/2/1
+ no ip address
+ clock rate 2000000
+ shutdown
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+interface Vlan982
+ description VLAN 982 Flour
+ mac-address 0001.4375.3501
+ no ip address
+!
+router eigrp 65
+ passive-interface GigabitEthernet0/0/1.1
+ passive-interface GigabitEthernet0/0/1.982
+ network 131.72.2.0 0.0.0.255
+ network 131.72.4.128 0.0.0.7
+ network 131.72.4.144 0.0.0.3
+ network 131.72.4.140 0.0.0.3
+!
+ip classless
+!
+ip flow-export version 9
+!
+!
+!
+banner motd ^C 103982732 Stannard 2:30 PM ^C
+!
+!
+!
+!
+line con 0
+ exec-timeout 0 0
+ logging synchronous
+!
+line aux 0
+!
+line vty 0 4
+ login
+!
+!
+!
+end

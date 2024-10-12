@@ -1,0 +1,115 @@
+Current configuration : 1451 bytes
+!
+version 15.4
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+no service password-encryption
+!
+hostname BadinR3
+!
+!
+!
+!
+!
+!
+!
+!
+no ip cef
+no ipv6 cef
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+no ip domain-lookup
+!
+!
+spanning-tree mode pvst
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ description Database Server LAN
+ ip address 131.72.4.97 255.255.255.224
+!
+interface GigabitEthernet0/0/0
+ no ip address
+ duplex auto
+ speed auto
+ shutdown
+!
+interface GigabitEthernet0/0/1
+ no ip address
+ duplex auto
+ speed auto
+ shutdown
+!
+interface Serial0/1/0
+ bandwidth 64
+ ip address 131.72.4.138 255.255.255.252
+!
+interface Serial0/1/1
+ bandwidth 512
+ ip address 131.72.4.145 255.255.255.252
+ clock rate 2000000
+!
+interface Serial0/2/0
+ ip address 211.13.83.1 255.255.255.252
+ clock rate 2000000
+!
+interface Serial0/2/1
+ no ip address
+ clock rate 2000000
+ shutdown
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+router eigrp 65
+ redistribute static 
+ passive-interface Loopback0
+ network 131.72.4.140 0.0.0.3
+ network 131.72.4.144 0.0.0.3
+ network 131.72.4.96 0.0.0.31
+!
+router rip
+ default-information originate
+!
+ip classless
+ip route 0.0.0.0 0.0.0.0 Serial0/2/0 
+!
+ip flow-export version 9
+!
+!
+ip access-list standard ACLTELNET
+ deny 131.72.0.0 0.0.1.255
+ permit any
+!
+banner motd ^C 103982732 Stannard 2:30 PM ^C
+!
+!
+!
+!
+line con 0
+ exec-timeout 0 0
+ logging synchronous
+!
+line aux 0
+!
+line vty 0 4
+ access-class ACLTELNET in
+ password cisco
+ login
+!
+!
+!
+end

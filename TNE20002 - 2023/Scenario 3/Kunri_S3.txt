@@ -1,0 +1,168 @@
+Current configuration : 2335 bytes
+!
+version 16.3.2
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+no service password-encryption
+!
+hostname KunriS3
+!
+!
+!
+!
+!
+!
+!
+no ip cef
+no ipv6 cef
+!
+!
+!
+username labuser privilege 15 secret 5 $1$mERr$hx5rVt7rPNoS4wqbXKX7m0
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+no ip domain-lookup
+ip domain-name scenario.lab
+!
+!
+spanning-tree mode pvst
+!
+!
+!
+!
+!
+!
+interface GigabitEthernet1/0/1
+ shutdown
+!
+interface GigabitEthernet1/0/2
+ shutdown
+!
+interface GigabitEthernet1/0/3
+ shutdown
+!
+interface GigabitEthernet1/0/4
+ shutdown
+!
+interface GigabitEthernet1/0/5
+ shutdown
+!
+interface GigabitEthernet1/0/6
+ shutdown
+!
+interface GigabitEthernet1/0/7
+ shutdown
+!
+interface GigabitEthernet1/0/8
+ shutdown
+!
+interface GigabitEthernet1/0/9
+ shutdown
+!
+interface GigabitEthernet1/0/10
+ shutdown
+!
+interface GigabitEthernet1/0/11
+ switchport mode trunk
+!
+interface GigabitEthernet1/0/12
+ shutdown
+!
+interface GigabitEthernet1/0/13
+ switchport access vlan 732
+ switchport mode access
+ switchport port-security
+ switchport port-security maximum 2
+ switchport port-security mac-address sticky 
+ switchport port-security mac-address sticky 0060.5C84.244A
+!
+interface GigabitEthernet1/0/14
+ switchport access vlan 732
+ switchport mode access
+ switchport port-security
+ switchport port-security maximum 2
+ switchport port-security mac-address sticky 
+ shutdown
+!
+interface GigabitEthernet1/0/15
+ shutdown
+!
+interface GigabitEthernet1/0/16
+ shutdown
+!
+interface GigabitEthernet1/0/17
+ shutdown
+!
+interface GigabitEthernet1/0/18
+ shutdown
+!
+interface GigabitEthernet1/0/19
+ shutdown
+!
+interface GigabitEthernet1/0/20
+ shutdown
+!
+interface GigabitEthernet1/0/21
+ shutdown
+!
+interface GigabitEthernet1/0/22
+ shutdown
+!
+interface GigabitEthernet1/0/23
+ shutdown
+!
+interface GigabitEthernet1/0/24
+ shutdown
+!
+interface GigabitEthernet1/1/1
+ shutdown
+!
+interface GigabitEthernet1/1/2
+ shutdown
+!
+interface GigabitEthernet1/1/3
+ shutdown
+!
+interface GigabitEthernet1/1/4
+ shutdown
+!
+interface Vlan1
+ ip address 131.72.4.65 255.255.255.224
+!
+ip default-gateway 131.72.0.1
+ip classless
+!
+ip flow-export version 9
+!
+!
+!
+banner motd ^C 103982732 Stannard 2:30 PM ^C
+!
+!
+!
+!
+line con 0
+ exec-timeout 0 0
+ logging synchronous
+!
+line aux 0
+!
+line vty 0 4
+ login local
+ transport input telnet
+line vty 5 15
+ login local
+ transport input telnet
+!
+!
+!
+!
+end

@@ -1,0 +1,139 @@
+Current configuration : 2293 bytes
+!
+version 15.4
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+no service password-encryption
+!
+hostname DaspurR2
+!
+!
+!
+!
+ip dhcp excluded-address 28.0.0.1 28.0.0.4
+!
+ip dhcp pool VLAN827
+ network 28.0.0.0 255.255.252.0
+ default-router 28.0.0.1
+ip dhcp pool VLAN273
+ network 28.0.4.0 255.255.255.0
+ default-router 28.0.4.1
+!
+!
+!
+no ip cef
+no ipv6 cef
+!
+!
+!
+username ISP password 0 cisco
+!
+!
+!
+!
+!
+!
+!
+!
+no ip domain-lookup
+!
+!
+spanning-tree mode pvst
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ description Database Server LAN
+ ip address 28.0.5.129 255.255.255.224
+ ip nat inside
+!
+interface GigabitEthernet0/0/0
+ no ip address
+ duplex auto
+ speed auto
+ shutdown
+!
+interface GigabitEthernet0/0/1
+ no ip address
+ duplex auto
+ speed auto
+ shutdown
+!
+interface Serial0/1/0
+ bandwidth 256
+ ip address 28.0.5.170 255.255.255.252
+ ip nat inside
+ clock rate 2000000
+!
+interface Serial0/1/1
+ description Link to ISP
+ ip address 191.22.43.1 255.255.255.252
+ encapsulation ppp
+ ppp authentication chap
+ ip nat outside
+ clock rate 2000000
+!
+interface Serial0/2/0
+ no ip address
+ clock rate 2000000
+ shutdown
+!
+interface Serial0/2/1
+ no ip address
+ clock rate 2000000
+ shutdown
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+router ospf 10
+ log-adjacency-changes
+ passive-interface Loopback0
+ network 28.0.5.128 0.0.0.31 area 0
+ network 28.0.5.168 0.0.0.3 area 0
+ default-information originate
+!
+ip nat pool VLAN1 135.12.64.87 135.12.64.126 netmask 255.255.255.128
+ip nat pool VLAN273 135.12.64.43 135.12.64.86 netmask 255.255.255.128
+ip nat pool VLAN827 135.12.64.1 135.12.64.42 netmask 255.255.255.128
+ip nat inside source list ACLVLAN1 pool VLAN1 overload
+ip nat inside source list ACLVLAN273 pool VLAN273 overload
+ip nat inside source list ACLVLAN827 pool VLAN827 overload
+ip classless
+!
+ip flow-export version 9
+!
+!
+ip access-list standard ACLTELNET
+ deny 28.0.0.0 0.0.3.255
+ permit any
+ip access-list extended ACLVLAN827
+ permit ip 28.0.0.0 0.0.3.255 any
+ip access-list extended ACLVLAN273
+ permit ip 28.0.4.0 0.0.0.255 any
+ip access-list extended ACLVLAN1
+ permit ip 28.0.5.160 0.0.0.7 any
+!
+banner motd ^C Student ID Name Time ^C
+!
+!
+!
+!
+line con 0
+ exec-timeout 0 0
+ logging synchronous
+!
+line aux 0
+!
+line vty 0 4
+ access-class ACLTELNET in
+ password cisco
+ login
+!
+!
+!
+end

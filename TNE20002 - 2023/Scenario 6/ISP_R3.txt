@@ -1,0 +1,120 @@
+Current configuration : 1470 bytes
+!
+version 15.4
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+no service password-encryption
+!
+hostname ISPR3
+!
+!
+!
+!
+!
+!
+!
+!
+no ip cef
+no ipv6 cef
+!
+!
+!
+username Daspur password 0 cisco
+!
+!
+!
+!
+!
+!
+!
+!
+no ip domain-lookup
+!
+!
+spanning-tree mode pvst
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ description External Server 1
+ ip address 154.3.0.1 255.255.0.0
+!
+interface Loopback1
+ description External Server 2
+ ip address 18.0.0.1 255.0.0.0
+!
+interface Loopback2
+ description External Network
+ ip address 162.55.0.1 255.255.0.0
+!
+interface Loopback3
+ description External Network
+ ip address 201.12.80.1 255.255.255.0
+!
+interface GigabitEthernet0/0/0
+ no ip address
+ duplex auto
+ speed auto
+ shutdown
+!
+interface GigabitEthernet0/0/1
+ no ip address
+ duplex auto
+ speed auto
+ shutdown
+!
+interface Serial0/1/0
+ no ip address
+ clock rate 2000000
+ shutdown
+!
+interface Serial0/1/1
+ description Link to Daspur
+ ip address 191.22.43.2 255.255.255.252
+ encapsulation ppp
+ ppp authentication chap
+ clock rate 2000000
+!
+interface Serial0/2/0
+ no ip address
+ clock rate 2000000
+ shutdown
+!
+interface Serial0/2/1
+ no ip address
+ clock rate 2000000
+ shutdown
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+ip classless
+ip route 131.12.64.0 255.255.255.224 Serial0/1/1 
+!
+ip flow-export version 9
+!
+!
+!
+banner motd ^C Student ID Name Time 7
+
+banner motd ^C
+!
+!
+!
+!
+line con 0
+ exec-timeout 0 0
+ logging synchronous
+!
+line aux 0
+!
+line vty 0 4
+ login
+!
+!
+!
+end

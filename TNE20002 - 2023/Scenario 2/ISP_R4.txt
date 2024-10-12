@@ -1,0 +1,112 @@
+Current configuration : 1322 bytes
+!
+version 15.4
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+no service password-encryption
+!
+hostname ISPR4
+!
+!
+!
+!
+!
+!
+!
+!
+no ip cef
+no ipv6 cef
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+no ip domain-lookup
+!
+!
+spanning-tree mode pvst
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ description External Server 1
+ ip address 138.80.0.1 255.255.0.0
+!
+interface Loopback1
+ description External Server 2
+ ip address 44.0.0.1 255.0.0.0
+!
+interface Loopback2
+ description External Network
+ ip address 159.23.0.1 255.255.0.0
+!
+interface Loopback3
+ description External Network
+ ip address 216.12.5.1 255.255.255.0
+!
+interface GigabitEthernet0/0/0
+ no ip address
+ duplex auto
+ speed auto
+ shutdown
+!
+interface GigabitEthernet0/0/1
+ no ip address
+ duplex auto
+ speed auto
+ shutdown
+!
+interface Serial0/1/0
+ ip address 204.3.53.2 255.255.255.252
+!
+interface Serial0/1/1
+ no ip address
+ clock rate 2000000
+ shutdown
+!
+interface Serial0/2/0
+ no ip address
+ clock rate 2000000
+ shutdown
+!
+interface Serial0/2/1
+ no ip address
+ clock rate 2000000
+ shutdown
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+ip classless
+ip route 148.72.0.0 255.255.0.0 Serial0/1/0 
+!
+ip flow-export version 9
+!
+!
+!
+banner motd ^C Student ID Name Time ^C
+!
+!
+!
+!
+line con 0
+ exec-timeout 0 0
+ logging synchronous
+!
+line aux 0
+!
+line vty 0 4
+ login
+!
+!
+!
+end
